@@ -1,0 +1,18 @@
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			// This localhost is just for your local development environment once spun up
+			var API_URL = 'http://localhost:8080/api'
+			// On button click
+		    $("#callApi").click(function(){
+		        $.get( API_URL, function( data ) {
+					  $( "#sample" ).text( JSON.stringify(data) );
+					  alert("I have just called the dockerized API!");
+				});
+		    }); 
+		});
+	</script>
+	<p id="sample"><br></p>
+	<input id = "callApi" type="submit" value="Make API Calls"/>
+</html>

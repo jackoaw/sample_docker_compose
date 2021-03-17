@@ -1,0 +1,19 @@
+version: '2'
+services:
+  achuba_api:
+    build: ./backend
+    image: jackoaw/achuba_api
+    command: gunicorn --workers 2 --bind 0.0.0.0:5000 api:app
+    expose:
+      - 5000
+    # This database url is just an example of what dns name could be mapped to an RDS
+    environment:
+      - DATABASE_URL=postgresql://achuba:iLoveCoding@worldchuba.db.com:5432/achuba_db
+    container_name: achuba_api
+  achuba_nginx:
+    build: ./nginx/prod
+    image: jackoaw/achuba_nginx
+    ports:
+      - 80:80
+    container_name: achuba_nginx
+  # DB Configuration is removed, should be done through an RDS or something similar instead

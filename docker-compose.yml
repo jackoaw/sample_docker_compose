@@ -1,0 +1,36 @@
+version: '2'
+services:
+  # Spin up services for the API
+  achuba_api:
+    build: ./backend
+    command: gunicorn --workers 2 --bind 0.0.0.0:5000 api:app
+    expose:
+      - 5000
+    environment:
+      - DATABASE_URL=postgresql://achuba:iLoveCoding@achuba_db:5432/achuba_db
+    depends_on:
+      - achuba_db
+    container_name: achuba_api
+  # Spin up a standard Postgresql database
+  achuba_db:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=achuba
+      - POSTGRES_PASSWORD=iLoveCoding
+      - POSTGRES_DB=achuba_db
+    container_name: achuba_db
+  # Spin up the front end, which is hosted through nginx
+  achuba_nginx:
+    build: ./nginx/dev
+    ports:
+      - 8080:80
+    depends_on:
+      - achuba_api
+    container_name: achuba_nginx
+
+# Spin up a volume for persistent data
+# Can delete it with 'docker-compose down -v'
+volumes:
+  postgres_data:

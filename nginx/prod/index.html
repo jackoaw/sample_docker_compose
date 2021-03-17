@@ -1,0 +1,17 @@
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			// This hostname if existed would act as the api for this webpage
+			var API_URL = 'http://worldchuba.com/api'
+		    $("#callApi").click(function(){
+		        $.get( API_URL, function( data ) {
+					  $( "#sample" ).text( JSON.stringify(data) );
+					  alert("I have just called the dockerized API!");
+				});
+		    }); 
+		});
+	</script>
+	<p id="sample"><br></p>
+	<input id = "callApi" type="submit" value="Make API Calls"/>
+</html>

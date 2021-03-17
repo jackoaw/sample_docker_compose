@@ -1,0 +1,7 @@
+Flask
+Flask-api
+Flask-SQLAlchemy
+sqlalchemy
+flask_cors
+gunicorn
+psycopg2
